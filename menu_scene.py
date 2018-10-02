@@ -100,6 +100,25 @@ class MenuScene(Scene):
         self.difficulty = "easy"
         self.play_up_to = 7
 
+        self.play_human_text.color = (255, 255, 255)
+        self.play_human_text.prep_img()
+        self.play_ai_text.color = (255, 255, 255)
+        self.play_ai_text.prep_img()
+        self.play_easy.color = (140, 0, 0)
+        self.play_easy.prep_img()
+        self.play_avg.color = (255, 255, 255)
+        self.play_avg.prep_img()
+        self.play_hard.color = (255, 255, 255)
+        self.play_hard.prep_img()
+        self.up_to_seven.color = (140, 0, 0)
+        self.up_to_seven.prep_img()
+        self.up_to_eleven.color = (255, 255, 255)
+        self.up_to_eleven.prep_img()
+        self.up_to_fifteen.color = (255, 255, 255)
+        self.up_to_fifteen.prep_img()
+        self.up_to_twentyone.color = (255, 255, 255)
+        self.up_to_twentyone.prep_img()
+
     def __changedifficulty(self):
         if self.difficulty is "easy":
             self.play_easy.color = (255, 255, 255)
@@ -131,12 +150,14 @@ class MenuScene(Scene):
         if self.play_human_text.text_image_rect.collidepoint(point[0],
                                                              point[1]):
             self.game_scene.ai_mode_on = False
-            self.game_scene.reset()
             self.game_scene.play_up_to = self.play_up_to
+            self.game_scene.reset()
             self.director.scene = self.game_scene
         elif self.play_ai_text.text_image_rect.collidepoint(point[0],
                                                             point[1]):
             self.game_scene.ai_mode_on = True
+            self.game_scene.play_up_to = self.play_up_to
+            self.game_scene.ai.set_difficulty(self.difficulty)
             self.game_scene.reset()
             self.director.scene = self.game_scene
         elif self.play_human_text.text_image_rect.collidepoint(point[0],

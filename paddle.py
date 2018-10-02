@@ -31,6 +31,9 @@ class Paddle(Sprite):
 
         self.speed_factor = 1
 
+        self.x = self.rect.centerx
+        self.y = self.rect.centery
+
     def reset(self):
         if self.side is 1:
             self.rect.centery = self.screen_rect.centery
@@ -54,6 +57,9 @@ class Paddle(Sprite):
         self.moving_positive = False
         self.moving_negative = False
 
+        self.x = self.rect.centerx
+        self.y = self.rect.centery
+
     def keydown(self, key):
         if key is self.keys[0]:
             self.moving_negative = True
@@ -69,24 +75,27 @@ class Paddle(Sprite):
     def update(self):
         if self.side is 1 or self.side is 5:
             if self.moving_negative and self.rect.top > 0:
-                self.rect.centery -= self.speed_factor
+                self.y -= self.speed_factor
             if self.moving_positive and \
                self.rect.bottom < self.screen_rect.bottom:
-                self.rect.centery += self.speed_factor
+                self.y += self.speed_factor
         else:
             if self.side is 2 or self.side is 3:
                 if self.moving_negative and self.rect.left > 0:
-                    self.rect.centerx -= self.speed_factor
+                    self.x -= self.speed_factor
                 if self.moving_positive and \
                    self.rect.right < self.screen_rect.centerx:
-                    self.rect.centerx += self.speed_factor
+                    self.x += self.speed_factor
             else:
                 if self.moving_negative and \
                    self.rect.left > self.screen_rect.centerx:
-                    self.rect.centerx -= self.speed_factor
+                    self.x -= self.speed_factor
                 if self.moving_positive and \
                    self.rect.right < self.screen_rect.right:
-                    self.rect.centerx += self.speed_factor
+                    self.x += self.speed_factor
+
+        self.rect.centerx = int(self.x)
+        self.rect.centery = int(self.y)
 
     def render(self):
         self.director.screen.blit(self.image, self.rect)

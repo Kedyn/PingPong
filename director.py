@@ -22,7 +22,6 @@ class Director:
         """Main game loop."""
 
         if self.scene is not None:
-
             while not self.quit:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:

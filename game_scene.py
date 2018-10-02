@@ -51,17 +51,22 @@ class GameScene(Scene):
                              "Set")
         self.go_text = Text(text_rect, 80, (0, 150, 0), director.screen, "Go!")
 
-        self.player_one_score_rect = pygame.Rect(0, 30, 40, 60)
-        self.player_one_score_rect.centerx = self.screen_rect.centerx - 60
+        self.player_one_score_rect = pygame.Rect(0, 30, 60, 60)
+        self.player_one_score_rect.centerx = self.screen_rect.centerx - 80
         self.player_one_score_text = Text(self.player_one_score_rect, 80,
                                           (255, 255, 255), director.screen,
                                           "0")
 
-        self.player_two_score_rect = pygame.Rect(0, 30, 40, 60)
-        self.player_two_score_rect.centerx = self.screen_rect.centerx + 60
+        self.player_two_score_rect = pygame.Rect(0, 30, 60, 60)
+        self.player_two_score_rect.centerx = self.screen_rect.centerx + 80
         self.player_two_score_text = Text(self.player_two_score_rect, 80,
                                           (255, 255, 255), director.screen,
                                           "0")
+
+        self.play_up_to_text_rect = pygame.Rect(0, 120, 40, 40)
+        self.play_up_to_text_rect.centerx = self.screen_rect.centerx
+        self.play_up_to_text = Text(self.play_up_to_text_rect, 40, (140, 0, 0),
+                                    director.screen, "7")
 
         self.player_one_score = 0
         self.player_two_score = 0
@@ -99,6 +104,15 @@ class GameScene(Scene):
         self.player_one_score = 0
         self.player_two_score = 0
         self.play_up_to = 7
+
+        self.player_one_score_text.text = str(self.player_one_score)
+        self.player_one_score_text.prep_img()
+
+        self.player_two_score_text.text = str(self.player_two_score)
+        self.player_two_score_text.prep_img()
+
+        self.play_up_to_text.text = str(self.play_up_to)
+        self.play_up_to_text.prep_img()
 
     def update(self):
         if self.intermission is False:
@@ -156,6 +170,10 @@ class GameScene(Scene):
         pygame.draw.rect(self.director.screen, (255, 255, 255),
                          self.player_two_score_rect, 1)
         self.player_two_score_text.render()
+
+        pygame.draw.rect(self.director.screen, (255, 255, 255),
+                         self.play_up_to_text_rect, 1)
+        self.play_up_to_text.render()
 
         for i in range(len(self.player_one)):
             self.player_one[i].render()

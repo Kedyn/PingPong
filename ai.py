@@ -5,6 +5,17 @@ class AI:
         self.paddles = paddles
         self.ball = ball
 
+    def set_difficulty(self, difficulty):
+        speed = self.paddles[0].speed_factor
+
+        if difficulty is "easy":
+            speed *= 0.75
+        elif difficulty is "average":
+            speed *= 0.85
+
+        for i in range(len(self.paddles)):
+            self.paddles[i].speed_factor = speed
+
     def update(self):
         for i in range(len(self.paddles)):
             self.paddles[i].moving_positive = False
