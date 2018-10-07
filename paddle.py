@@ -29,7 +29,7 @@ class Paddle(Sprite):
 
         self.reset()
 
-        self.speed_factor = 1
+        self.speed_factor = 0.2
 
         self.x = self.rect.centerx
         self.y = self.rect.centery

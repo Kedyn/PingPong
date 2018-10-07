@@ -95,7 +95,7 @@ class GameScene(Scene):
 
         self.ball.reset()
 
-        self.count_down = 300
+        self.count_down = 3000
         self.intermission = True
 
     def reset(self):
@@ -183,9 +183,9 @@ class GameScene(Scene):
         self.ball.render()
 
         if self.intermission:
-            if self.count_down > 200:
+            if self.count_down > 2000:
                 self.ready_text.render()
-            elif self.count_down > 100:
+            elif self.count_down > 1000:
                 self.set_text.render()
             else:
                 self.go_text.render()

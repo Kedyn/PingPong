@@ -20,20 +20,15 @@ class Ball(Sprite):
 
         self.rect = self.image.get_rect()
 
-        self.reset()
-
         self.acceleration = 0
 
-        direction = -1
+        self.velocity_x = 0
+        self.velocity_y = 0
 
-        if random.randint(0, 1) is 1:
-            direction = 1
+        self.x = 0
+        self.y = 0
 
-        self.velocity_x = round(random.randint(0, 10) * 0.1 * direction, 1)
-        self.velocity_y = round(random.randint(0, 10) * 0.1 * direction, 1)
-
-        self.x = self.rect.centerx
-        self.y = self.rect.centery
+        self.reset()
 
     def reset(self):
         self.rect.center = self.screen_rect.center
@@ -43,32 +38,31 @@ class Ball(Sprite):
 
         self.acceleration = 0
 
-        direction = -1
+        self.velocity_x = round(random.choice((-1, 1)) * 0.2, 1)
+        self.velocity_y = round(random.choice((-1, 1)) * 0.2, 1)
 
-        if random.randint(0, 1) is 1:
-            direction = 1
-
-        self.velocity_x = round(random.randint(0, 10) * 0.1 * direction, 1)
-        self.velocity_y = round(random.randint(0, 10) * 0.1 * direction, 1)
+    def check_collision(self, paddles):
+        for paddle in paddles:
+            if self.rect.colliderect(paddle.rect):
+                if paddle.side is 1 or paddle.side is 5:
+                    self.velocity_x *= -1
+                    if paddle.side is 1:
+                        self.rect.left = paddle.rect.right
+                    else:
+                        self.rect.right = paddle.rect.left
+                else:
+                    self.velocity_y *= -1
+                    if paddle.side is 2 or paddle.side is 4:
+                        self.rect.top = paddle.rect.bottom
+                    else:
+                        self.rect.bottom = paddle.rect.top
+                self.x = self.rect.centerx
+                self.y = self.rect.centery
+                break
 
     def update(self):
-        for i in range(len(self.player_one_paddles)):
-            if self.rect.colliderect(self.player_one_paddles[i].rect):
-                if self.player_one_paddles[i].side is 1 or \
-                   self.player_one_paddles[i].side is 5:
-                    self.velocity_x = -1 * round(random.randrange(1, 10) * 0.1, 1)
-                else:
-                    self.velocity_y = -1 * round(random.randrange(1, 10) * 0.1, 1)
-                break
-
-        for i in range(len(self.player_two_paddles)):
-            if self.rect.colliderect(self.player_two_paddles[i].rect):
-                if self.player_two_paddles[i].side is 1 or \
-                   self.player_two_paddles[i].side is 5:
-                    self.velocity_x = -1 * round(random.randrange(1, 10) * 0.1, 1)
-                else:
-                    self.velocity_y = -1 * round(random.randrange(1, 10) * 0.1, 1)
-                break
+        self.check_collision(self.player_one_paddles)
+        self.check_collision(self.player_two_paddles)
 
         self.x += self.velocity_x + self.acceleration
         self.y += self.velocity_y + self.acceleration
