@@ -14,6 +14,8 @@ class Ball(Sprite):
         self.player_one_paddles = player_one_paddles
         self.player_two_paddles = player_two_paddles
 
+        self.hit_sound = pygame.mixer.Sound('assets/sounds/hit.ogg')
+
         self.image = pygame.image.load('assets/images/ball.png')
         self.image = pygame.transform.scale(self.image, (20, 20))
         self.screen_rect = director.screen.get_rect()
@@ -58,6 +60,9 @@ class Ball(Sprite):
                         self.rect.bottom = paddle.rect.top
                 self.x = self.rect.centerx
                 self.y = self.rect.centery
+
+                self.hit_sound.play()
+
                 break
 
     def update(self):
