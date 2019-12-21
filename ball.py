@@ -40,8 +40,8 @@ class Ball(Sprite):
 
         self.acceleration = 0
 
-        self.velocity_x = round(random.choice((-1, 1)) * 0.2, 1)
-        self.velocity_y = round(random.choice((-1, 1)) * 0.2, 1)
+        self.velocity_x = round(random.choice((-1, 1)) * 0.1, 1)
+        self.velocity_y = round(random.choice((-1, 1)) * 0.1, 1)
 
     def check_collision(self, paddles):
         for paddle in paddles:

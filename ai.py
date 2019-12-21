@@ -9,9 +9,9 @@ class AI:
         speed = self.paddles[0].speed_factor
 
         if difficulty is "easy":
-            speed *= 0.75
+            speed *= 0.4
         elif difficulty is "average":
-            speed *= 0.85
+            speed *= 0.6
 
         for i in range(len(self.paddles)):
             self.paddles[i].speed_factor = speed
